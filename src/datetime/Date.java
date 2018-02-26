@@ -66,12 +66,62 @@ public class Date {
 		}
 	}
 	
+	public boolean equals(Date other) {
+		return (this.year == other.year) && (this.month == other.month) && (this.day == other.day);
+	}
+	
+	public boolean before(Date other) {
+		if (this.equals(other)) {
+			return false;
+		}
+		else if (this.year == other.year) {
+			if (this.month == other.month) {
+				return this.day < other.day;
+			}
+			else {
+				return this.month < other.month;
+			}
+		}
+		else {
+			return this.year < other.year;
+		}
+	}
+	
+	public boolean after(Date other) {
+		if (this.equals(other)) {
+			return false;
+		}
+		else {
+			return !this.before(other);
+		}
+	}
+	
+	public Date nextDay() {
+		Date nextDay = new Date(this.year, this.month, this.day+1);
+		if (!nextDay.isValid()) {
+			nextDay.month++;
+			nextDay.day = 1;
+			if (!nextDay.isValid()) {
+				nextDay.year++;
+				nextDay.month = 1;
+			}
+		}
+		return nextDay;
+	}
+	
 	public static void main(String[] args) {
 		Date d1 = new Date(2018, 2, 25);
 		System.out.println(d1);
-		String s1 = d1.toString();
-		Date d2 = new Date(s1);
+		Date d2 = new Date("2018/2/26");
 		System.out.println(d2);
+		Date d3 = d1.nextDay();
+		System.out.println(d3);
+		Date d4 = d3.nextDay();
+		System.out.println(d4);
+		System.out.println(d1.before(d2));
+		System.out.println(d4.after(d2));
+		System.out.println(d4.before(d2));
+		System.out.println(d2.equals(d3));
 	}
 
 }
