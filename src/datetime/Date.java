@@ -39,6 +39,33 @@ public class Date {
 		return this.year + "/" + this.month + "/" + this.day;
 	}
 	
+	public boolean isLeapYear() {
+		if (this.year % 400 == 0) {
+			return true;
+		}
+		else if (this.year % 100 == 0){
+			return false;
+		}
+		else {
+			return (this.year % 4 == 0);
+		}
+	}
+	
+	public boolean isValid() {
+		if (this.month < 1 || this.month > 12) {
+			return false;
+		}
+		else if (this.day < 1) {
+			return false;
+		}
+		else if (this.isLeapYear()) {
+			return (MAX_DAYS_LEAP[this.month-1] >= this.day);
+		}
+		else {
+			return (MAX_DAYS[this.month-1] >= this.day);
+		}
+	}
+	
 	public static void main(String[] args) {
 		Date d1 = new Date(2018, 2, 25);
 		System.out.println(d1);
