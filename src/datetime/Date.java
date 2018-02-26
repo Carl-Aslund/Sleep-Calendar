@@ -2,8 +2,11 @@ package datetime;
 
 public class Date {
 
-	private static int[] MAX_DAYS_LEAP = {31,28,31,30,31,30,31,31,30,31,30,31};
-	private static int[] MAX_DAYS = {31,29,31,30,31,30,31,31,30,31,30,31};
+	private static final int[] MAX_DAYS = {31,28,31,30,31,30,31,31,30,31,30,31};
+	private static final int[] MAX_DAYS_LEAP = {31,29,31,30,31,30,31,31,30,31,30,31};
+	
+	private static final int USUAL_DAYS = 365;
+	private static final int LEAP_DAYS = 366;
 	
 	private int year;
 	private int month;
@@ -20,6 +23,12 @@ public class Date {
 		this.year = Integer.parseInt(dateParts[0]);
 		this.month = Integer.parseInt(dateParts[1]);
 		this.day = Integer.parseInt(dateParts[2]);
+	}
+	
+	public Date(Date other) {
+		this.year = other.year;
+		this.month = other.month;
+		this.day = other.day;
 	}
 	
 	public void setDate(int inYear, int inMonth, int inDay) {
@@ -109,19 +118,53 @@ public class Date {
 		return nextDay;
 	}
 	
+	public int daysBefore(Date other) {
+		Date copy = new Date(this);
+		if (this.equals(other)) {
+			return 0;
+		}
+		else if (this.after(other)) {
+			return -1 * other.daysBefore(this);
+		}
+		else if (this.year == other.year){
+			if (this.month == other.month) {
+				return other.day - this.day;
+			}
+			else {
+				int monthTotal = 0;
+				while (copy.month < other.month) {
+					if (copy.isLeapYear()) {
+						monthTotal += MAX_DAYS_LEAP[copy.month-1];
+					}
+					else {
+						monthTotal += MAX_DAYS[copy.month-1];
+					}
+					copy.month++;
+				}
+				return monthTotal + copy.daysBefore(other);
+			}
+		}
+		else {
+			int yearTotal = 0;
+			while (copy.year < other.year) {
+				if (copy.isLeapYear()) {
+					yearTotal += LEAP_DAYS;
+				}
+				else {
+					yearTotal += USUAL_DAYS;
+				}
+				copy.year++;
+			}
+			return yearTotal + copy.daysBefore(other);
+		}
+	}
+	
 	public static void main(String[] args) {
-		Date d1 = new Date(2018, 2, 25);
+		Date d1 = new Date("1998/6/16");
 		System.out.println(d1);
 		Date d2 = new Date("2018/2/26");
 		System.out.println(d2);
-		Date d3 = d1.nextDay();
-		System.out.println(d3);
-		Date d4 = d3.nextDay();
-		System.out.println(d4);
-		System.out.println(d1.before(d2));
-		System.out.println(d4.after(d2));
-		System.out.println(d4.before(d2));
-		System.out.println(d2.equals(d3));
+		System.out.println(d1.daysBefore(d2));
 	}
 
 }
