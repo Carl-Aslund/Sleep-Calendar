@@ -3,56 +3,30 @@ package datetime;
 public class DateTime {
 
 	private Date date;
-	private int hour;
-	private int minute;
+	private Time time;
 	
 	public static DateTime currentDateTime() {
-		String timeStr = java.time.LocalTime.now().toString();
-		return new DateTime(Date.currentDate(), timeStr);
+		return new DateTime(Date.currentDate(), Time.currentTime());
 	}
 	
-	public DateTime(Date inDate, int inHour, int inMinute) {
+	public DateTime(Date inDate, Time inTime) {
 		this.date = inDate;
-		this.hour = inHour;
-		this.minute = inMinute;
-	}
-	
-	public DateTime(int inYear, int inMonth, int inDay, int inHour, int inMinute) {
-		this.date = new Date(inYear, inMonth, inDay);
-		this.hour = inHour;
-		this.minute = inMinute;
-	}
-	
-	public DateTime(String dateStr, int inHour, int inMinute) {
-		this.date = new Date(dateStr);
-		this.hour = inHour;
-		this.minute = inMinute;
+		this.time = inTime;
 	}
 	
 	public DateTime(String dateTimeStr) {
 		String[] dateTimeParts = dateTimeStr.split(" ");
 		this.date = new Date(dateTimeParts[0]);
-		String[] timeParts = dateTimeParts[0].split(":");
-		this.hour = Integer.parseInt(timeParts[0]);
-		this.minute = Integer.parseInt(timeParts[1]);
+		this.time = new Time(dateTimeParts[1]);
 	}
 	
-	public DateTime(String dateStr, String timeStr) {
-		this.date = new Date(dateStr);
-		String[] timeParts = timeStr.split(":");
-		this.hour = Integer.parseInt(timeParts[0]);
-		this.minute = Integer.parseInt(timeParts[1]);
-	}
-	
-	public DateTime(Date inDate, String timeStr) {
-		this.date = inDate;
-		String[] timeParts = timeStr.split(":");
-		this.hour = Integer.parseInt(timeParts[0]);
-		this.minute = Integer.parseInt(timeParts[1]);
+	public DateTime(DateTime other) {
+		this.date = new Date(other.date);
+		this.time = new Time(other.time);
 	}
 	
 	public String toString() {
-		return this.date.toString() + " " + this.hour + ":" + this.minute;
+		return this.date.toString() + " " + this.time.toString();
 	}
 	
 	public static void main(String[] args) { 
