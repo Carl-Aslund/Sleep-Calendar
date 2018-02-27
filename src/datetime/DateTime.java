@@ -30,7 +30,7 @@ public class DateTime {
 	}
 	
 	public static void main(String[] args) { 
-		System.out.println(java.time.LocalTime.now().toString());
+		System.out.println(currentDateTime());
 	}
 
 }

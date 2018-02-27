@@ -37,19 +37,6 @@ public class Date {
 		this.day = other.day;
 	}
 	
-	public void setDate(int inYear, int inMonth, int inDay) {
-		this.year = inYear;
-		this.month = inMonth;
-		this.day = inDay;
-	}
-	
-	public void setDate(String dateStr) {
-		String[] dateParts = dateStr.split("/");
-		this.year = Integer.parseInt(dateParts[0]);
-		this.month = Integer.parseInt(dateParts[1]);
-		this.day = Integer.parseInt(dateParts[2]);
-	}
-	
 	public String toString() {
 		return this.year + "/" + this.month + "/" + this.day;
 	}
