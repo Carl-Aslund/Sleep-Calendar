@@ -12,6 +12,12 @@ public class Date {
 	private int month;
 	private int day;
 	
+	public static Date currentDate() {
+		String dateStr = java.time.LocalDate.now().toString();
+		dateStr = dateStr.replaceAll("-", "/");
+		return new Date(dateStr);
+	}
+	
 	public Date(int inYear, int inMonth, int inDay) {
 		this.year = inYear;
 		this.month = inMonth;
