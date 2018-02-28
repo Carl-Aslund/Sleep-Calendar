@@ -67,8 +67,8 @@ public class DateTime {
 				this.time.timeBefore(other.time));
 	}
 	
-	public static void main(String[] args) { 
-		System.out.println(currentDateTime());
+	public static void main(String[] args) {
+		
 	}
 
 }

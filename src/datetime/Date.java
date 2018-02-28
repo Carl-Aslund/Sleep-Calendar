@@ -3,7 +3,10 @@ package datetime;
 public class Date {
 
 	private static final int[] MAX_DAYS = {31,28,31,30,31,30,31,31,30,31,30,31};
-	private static final int[] MAX_DAYS_LEAP = {31,29,31,30,31,30,31,31,30,31,30,31};
+	private static final int[] MAX_DAYS_LEAP = {31,29,31,30,31,30,31,31,30,31,
+			30,31};
+	private static final String[] WEEKDAYS = {"Monday", "Tuesday", "Wednesday",
+			"Thursday", "Friday", "Saturday", "Sunday"};
 	
 	private static final int USUAL_DAYS = 365;
 	private static final int LEAP_DAYS = 366;
@@ -11,7 +14,51 @@ public class Date {
 	private int year;
 	private int month;
 	private int day;
+	private int weekday;
 	
+	/**
+	 * Getter for the current day of the week.
+	 * 
+	 * @return	the date's day of the week as an int
+	 */
+	public int getWeekday() {
+		return this.weekday;
+	}
+	
+	/**
+	 * Getter for a day of the week as an integer.
+	 * 
+	 * @param	dayName	the name of the day of the week
+	 * @return			the corresponding integer
+	 */
+	public static int getWeekday(String dayName) {
+		for (int i=0; i<7; i++) {
+			if (WEEKDAYS[i].equals(dayName))
+				return i;
+		}
+		return -1;
+	}
+	
+	/**
+	 * Getter for the current day of the week.
+	 * 
+	 * @return	the date's day of the week as an int
+	 */
+	public String getWeekdayName() {
+		return WEEKDAYS[this.weekday];
+	}
+	
+	/**
+	 * Sets the weekday to the appropriate day.
+	 */
+
+	public void setWeekday() {
+		int diff = ((new Date(2018,1,1)).daysBefore(this))%7;
+		if (diff < 0) diff += 7;
+		this.weekday = diff;
+	}
+	
+
 	/**
 	 * Returns the current date as a Date object.
 	 * WARNING: This has only been tested in PST.
@@ -35,6 +82,7 @@ public class Date {
 		this.year = inYear;
 		this.month = inMonth;
 		this.day = inDay;
+		this.setWeekday();
 	}
 	
 	/**
@@ -47,6 +95,7 @@ public class Date {
 		this.year = Integer.parseInt(dateParts[0]);
 		this.month = Integer.parseInt(dateParts[1]);
 		this.day = Integer.parseInt(dateParts[2]);
+		this.setWeekday();
 	}
 	
 	/**
@@ -58,6 +107,7 @@ public class Date {
 		this.year = other.year;
 		this.month = other.month;
 		this.day = other.day;
+		this.setWeekday();
 	}
 	
 	/**
