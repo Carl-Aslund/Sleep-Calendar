@@ -12,18 +12,36 @@ public class Date {
 	private int month;
 	private int day;
 	
+	/**
+	 * Returns the current date as a Date object.
+	 * WARNING: This has only been tested in PST.
+	 * 
+	 * @return	the current Date
+	 */
 	public static Date currentDate() {
 		String dateStr = java.time.LocalDate.now().toString();
 		dateStr = dateStr.replaceAll("-", "/");
 		return new Date(dateStr);
 	}
 	
+	/**
+	 * Class constructor.
+	 * 
+	 * @param inYear		the year of the Date object
+	 * @param inMonth	the month of the Date object
+	 * @param inDay		the day of the Date object
+	 */
 	public Date(int inYear, int inMonth, int inDay) {
 		this.year = inYear;
 		this.month = inMonth;
 		this.day = inDay;
 	}
 	
+	/**
+	 * Class constructor.
+	 * 
+	 * @param	dateStr	a String representing equivalent toString() output
+	 */
 	public Date(String dateStr) {
 		String[] dateParts = dateStr.split("/");
 		this.year = Integer.parseInt(dateParts[0]);
@@ -31,16 +49,31 @@ public class Date {
 		this.day = Integer.parseInt(dateParts[2]);
 	}
 	
+	/**
+	 * Class copy constructor.
+	 * 
+	 * @param other	a Date object containing all desired attributes
+	 */
 	public Date(Date other) {
 		this.year = other.year;
 		this.month = other.month;
 		this.day = other.day;
 	}
 	
+	/**
+	 * Overrides the default Object.toString() method.
+	 * 
+	 * @return	a String representation of the Date object
+	 */
 	public String toString() {
 		return this.year + "/" + this.month + "/" + this.day;
 	}
 	
+	/**
+	 * Determines if a given Date object falls on a leap year.
+	 * 
+	 * @return	true or false, whether the date's year is a leap year
+	 */
 	public boolean isLeapYear() {
 		if (this.year % 400 == 0) {
 			return true;
@@ -53,6 +86,11 @@ public class Date {
 		}
 	}
 	
+	/**
+	 * Determines if the Date object represents a valid time of day.
+	 * 
+	 * @return	true or false, whether the given date is valid
+	 */
 	public boolean isValid() {
 		if (this.month < 1 || this.month > 12) {
 			return false;
@@ -68,10 +106,22 @@ public class Date {
 		}
 	}
 	
+	/**
+	 * Determines if two Date objects (this and other) represent the same thing.
+	 * 
+	 * @param other	another Date object in question
+	 * @return		true or false, whether this and other are equivalent
+	 */
 	public boolean equals(Date other) {
 		return (this.year == other.year) && (this.month == other.month) && (this.day == other.day);
 	}
 	
+	/**
+	 * Determines if one Date object occurs before another.
+	 * 
+	 * @param other	another Date object in question
+	 * @return		true or false, whether this occurs before other
+	 */
 	public boolean before(Date other) {
 		if (this.equals(other)) {
 			return false;
@@ -89,6 +139,12 @@ public class Date {
 		}
 	}
 	
+	/**
+	 * Determines if one Date object occurs after another.
+	 * 
+	 * @param other	another Date object in question
+	 * @return		true or false, whether this occurs after other
+	 */
 	public boolean after(Date other) {
 		if (this.equals(other)) {
 			return false;
@@ -98,6 +154,11 @@ public class Date {
 		}
 	}
 	
+	/**
+	 * Calculates and returns a Date object representing one day later.
+	 * 
+	 * @return	the next day, as a Date object
+	 */
 	public Date nextDay() {
 		Date nextDay = new Date(this.year, this.month, this.day+1);
 		if (!nextDay.isValid()) {
@@ -111,6 +172,12 @@ public class Date {
 		return nextDay;
 	}
 	
+	/**
+	 * Determines how many days before another a given Date is.
+	 * 
+	 * @param other	another Date object in question
+	 * @return		an integer representation of the days between dates
+	 */
 	public int daysBefore(Date other) {
 		Date copy = new Date(this);
 		if (this.equals(other)) {
