@@ -29,6 +29,10 @@ public class DateTime {
 		return this.date.toString() + " " + this.time.toString();
 	}
 	
+	public int minsBefore(DateTime other) {
+		return (1440*date.daysBefore(other.date)) + time.minsBefore(other.time);
+	}
+	
 	public static void main(String[] args) { 
 		System.out.println(currentDateTime());
 	}
