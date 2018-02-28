@@ -85,6 +85,15 @@ public class Time {
 		}
 	}
 	
+	public Time timeBefore(Time other) {
+		int mins = this.minsBefore(other);
+		return new Time(mins/60, mins%60);
+	}
+	
+	public Time addTime(Time other) {
+		return new Time(this.hour+other.hour, this.minute+other.minute);
+	}
+	
 	public static void main(String[] args) {
 		Time t1 = new Time("5:00");
 		Time t2 = new Time("12:15");
