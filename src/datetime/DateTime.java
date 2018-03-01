@@ -48,6 +48,15 @@ public class DateTime {
 	}
 	
 	/**
+	 * Getter for private variable.
+	 * 
+	 * @return	the DateTime's corresponding Date object
+	 */
+	public Date getDate() {
+		return this.date;
+	}
+	
+	/**
 	 * Overrides the default Object.toString() method.
 	 * 
 	 * @return	a String representation of the DateTime object
