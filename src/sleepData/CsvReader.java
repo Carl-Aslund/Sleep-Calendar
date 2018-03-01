@@ -14,7 +14,7 @@ public class CsvReader {
 	 */
 	public CsvReader(String fileName) {
 		try {
-			FileReader fileReader = new FileReader(fileName);
+			FileReader fileReader = new FileReader("data/"+fileName);
 			this.bufferedReader = new BufferedReader(fileReader);
 		} catch (FileNotFoundException e) {
 			System.out.println("ERROR: File not found.");
@@ -44,7 +44,7 @@ public class CsvReader {
 	 */
 	public void close() {
 		try {
-			bufferedReader.close();
+			this.bufferedReader.close();
 		} catch (IOException e) {
 			System.out.println("ERROR: Failure to close file.");
 		}
