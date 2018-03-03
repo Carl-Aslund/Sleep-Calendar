@@ -2,6 +2,6 @@ package sleepData;
 
 public class Preferences {
 
-	public static String dataFile = "data/nights.csv";
+	public static String dataFile = "nights.csv";
 	
 }
